@@ -44,7 +44,7 @@ class QMatrix():
         self.action_shape = tuple(len(dim) for dim in self.action_space)
         self.matrix = np.zeros(self.state_shape + self.action_shape)
 
-    def get_random_action(self, state: np.ndarray) -> Tuple[np.ndarray, Tuple[int]]:
+    def get_random_action(self) -> Tuple[np.ndarray, Tuple[int]]:
         idxs = tuple(random.randint(0, dim - 1) for dim in self.action_shape)
         return np.array([space[idx] for space, idx in zip(self.action_space, idxs)]), idxs
 
@@ -52,7 +52,7 @@ class QMatrix():
         actions = self.matrix[self.find_state_position(state)]
         idxs = np.unravel_index(actions.argmax(), self.action_shape)
         if np.all(np.asarray(idxs) == 0) and actions[idxs] == 0:
-            return self.get_random_action(state)
+            return self.get_random_action()
         return np.array([space[idx] for space, idx in zip(self.action_space, idxs)]), idxs
 
     def find_q_position(self, state: np.ndarray, action_idxs: Tuple[int]) -> Tuple[int]:
@@ -87,7 +87,7 @@ class QLearningActor(BaseActor):
     def get_action(self, state: np.ndarray, prev_reward: float) -> np.ndarray:
         if random.uniform(0, 1) < self.explore_rate:
             # explore: take random action
-            action, action_idxs = self.q_matrix.get_random_action(state)
+            action, action_idxs = self.q_matrix.get_random_action()
         else:
             # exploit: take the most optimal action
             action, action_idxs = self.q_matrix.get_optimal_action(state)
