@@ -85,7 +85,6 @@ class QLearningActor(BaseActor):
         self.explore_rate = explore_rate
 
     def get_action(self, state: np.ndarray, prev_reward: float) -> np.ndarray:
-        self.q_matrix.get_optimal_action(np.array([ 2.32605438, -6.71626693]))
         if random.uniform(0, 1) < self.explore_rate:
             # explore: take random action
             action, action_idxs = self.q_matrix.get_random_action(state)
