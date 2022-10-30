@@ -1,0 +1,30 @@
+environment:
+  id: 'Pendulum-v1'
+  g: 9.81
+  max_torque: 3.0
+  max_episode_steps: 300
+q_matrix:
+  state_bounds:
+    - [-1.5707963267948966, 1.5707963267948966]
+    - [-1, 1]
+  state_granularity:
+    - 0.1
+    - 0.1
+  action_bounds:
+    - [-2.0, 2.0]
+  action_granularity:
+    - 0.1
+actor:
+  learning_rate: 1
+  discount_factor: 1
+  explore_rate: 0.5
+mode: train
+logger_level: INFO
+weights_fpath: "pendulum/pendulum_q_weights.npy"
+train_params:
+  n_batches: 1000
+  n_step: 10000
+  batch_plot: 100
+test_params:
+  n_step: 1000
+  sleep_seconds: 0.1

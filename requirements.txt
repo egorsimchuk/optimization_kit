@@ -9,3 +9,6 @@ loguru
 tqdm
 plotly
 kaleido
+PyYAML
+joblib
+hydra-core
