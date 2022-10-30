@@ -28,3 +28,5 @@ train_params:
 test_params:
   n_step: 1000
   sleep_seconds: 0.1
+hydra:
+  output_subdir: null
